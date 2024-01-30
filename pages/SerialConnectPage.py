@@ -71,7 +71,7 @@ class SerialConnectFrame(tb.Frame):
   def connectToPort(self, name):
     try:
       g.serClient = SerialComm(name, 115200, 0.1)
-      time.sleep(2)
+      time.sleep(5)
       isSuccessful = g.serClient.send("mode", 0) # decativate pid mode (activate pwm mode and parameter settings)
       isSuccessful = g.serClient.send("pwm", 0, 0) 
       # print(isSuccessful)
