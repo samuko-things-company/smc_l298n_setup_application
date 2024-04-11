@@ -2,7 +2,7 @@ import time
 from math import sin, pi
 
 class g():
-  dirConfigTextList = ['left-wheel', 'right-wheel']
+  dirConfigTextList = ['forward', 'reverse']
   durationList = [5,10, 15, 20] # in sec
   signalList = ["step", "square1", "square2", "sine1", "sine2"]
 
@@ -21,7 +21,7 @@ class g():
   motorInitialTheta = [-90, -90]
   motorTheta = [0.0, 0.0]
 
-  motorPPR = [1, 1]
+  motorPPR = [1.0, 1.0]
   motorDirConfig = [1, 1]
   motorDirConfigText = [dirConfigTextList[0], dirConfigTextList[1]]
 

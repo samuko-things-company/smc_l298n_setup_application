@@ -60,7 +60,7 @@ class MainAppFrame(tb.Frame):
 
     
     ############Initialize the mainContentFrame ################
-    self.displayPage(self.button5, self.displayI2CSetupPage)
+    self.displayPage(self.button6, self.displayResetPage)
     ############################################################
 
 
