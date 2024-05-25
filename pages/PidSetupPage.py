@@ -28,19 +28,19 @@ class PidSetupFrame(tb.Frame):
 
 
     #create widgets to be added to frame1
-    g.motorKp[self.motorNo] = g.serClient.get(f"kp{g.motorLabel[self.motorNo]}")
+    g.motorKp[self.motorNo] = g.serClient.get(f"/kp{g.motorLabel[self.motorNo]}")
     self.setKp = SetValueFrame(self.frame1, keyTextInit=f"KP_{g.motorLabel[self.motorNo]}: ", valTextInit=g.motorKp[self.motorNo],
                                middleware_func=self.setKpFunc)
 
-    g.motorKi[self.motorNo] = g.serClient.get(f"ki{g.motorLabel[self.motorNo]}")
+    g.motorKi[self.motorNo] = g.serClient.get(f"/ki{g.motorLabel[self.motorNo]}")
     self.setKi = SetValueFrame(self.frame1, keyTextInit=f"KI_{g.motorLabel[self.motorNo]}: ", valTextInit=g.motorKi[self.motorNo],
                                middleware_func=self.setKiFunc)
 
-    g.motorKd[self.motorNo] = g.serClient.get(f"kd{g.motorLabel[self.motorNo]}")
+    g.motorKd[self.motorNo] = g.serClient.get(f"/kd{g.motorLabel[self.motorNo]}")
     self.setKd = SetValueFrame(self.frame1, keyTextInit=f"KD_{g.motorLabel[self.motorNo]}: ", valTextInit=g.motorKd[self.motorNo],
                                middleware_func=self.setKdFunc)
 
-    g.motorCf[self.motorNo] = g.serClient.get(f"f0{g.motorLabel[self.motorNo]}")
+    g.motorCf[self.motorNo] = g.serClient.get(f"/f0{g.motorLabel[self.motorNo]}")
     self.setCf = SetValueFrame(self.frame1, keyTextInit=f"CF_{g.motorLabel[self.motorNo]}(Hz): ", valTextInit=g.motorCf[self.motorNo],
                                middleware_func=self.setCfFunc)
     
@@ -88,8 +88,8 @@ class PidSetupFrame(tb.Frame):
   def setKpFunc(self, kp_val_str):
     try:
       if kp_val_str:
-        isSuccessful = g.serClient.send(f"kp{g.motorLabel[self.motorNo]}", float(kp_val_str))
-        val = g.serClient.get(f"kp{g.motorLabel[self.motorNo]}")
+        isSuccessful = g.serClient.send(f"/kp{g.motorLabel[self.motorNo]}", float(kp_val_str))
+        val = g.serClient.get(f"/kp{g.motorLabel[self.motorNo]}")
         g.motorKp[self.motorNo] = val
     except:
       pass
@@ -100,8 +100,8 @@ class PidSetupFrame(tb.Frame):
   def setKiFunc(self, ki_val_str):
     try:
       if ki_val_str:
-        isSuccessful = g.serClient.send(f"ki{g.motorLabel[self.motorNo]}", float(ki_val_str))
-        val = g.serClient.get(f"ki{g.motorLabel[self.motorNo]}")
+        isSuccessful = g.serClient.send(f"/ki{g.motorLabel[self.motorNo]}", float(ki_val_str))
+        val = g.serClient.get(f"/ki{g.motorLabel[self.motorNo]}")
         g.motorKi[self.motorNo] = val
     except:
       pass
@@ -112,8 +112,8 @@ class PidSetupFrame(tb.Frame):
   def setKdFunc(self, kd_val_str):
     try:
       if kd_val_str:
-        isSuccessful = g.serClient.send(f"kd{g.motorLabel[self.motorNo]}", float(kd_val_str))
-        val = g.serClient.get(f"kd{g.motorLabel[self.motorNo]}")
+        isSuccessful = g.serClient.send(f"/kd{g.motorLabel[self.motorNo]}", float(kd_val_str))
+        val = g.serClient.get(f"/kd{g.motorLabel[self.motorNo]}")
         g.motorKd[self.motorNo] = val
     except:
       pass
@@ -124,8 +124,8 @@ class PidSetupFrame(tb.Frame):
   def setCfFunc(self, cf_val_str):
     try:
       if cf_val_str:
-        isSuccessful = g.serClient.send(f"f0{g.motorLabel[self.motorNo]}", float(cf_val_str))
-        val = g.serClient.get(f"f0{g.motorLabel[self.motorNo]}")
+        isSuccessful = g.serClient.send(f"/f0{g.motorLabel[self.motorNo]}", float(cf_val_str))
+        val = g.serClient.get(f"/f0{g.motorLabel[self.motorNo]}")
         g.motorCf[self.motorNo] = val
     except:
       pass

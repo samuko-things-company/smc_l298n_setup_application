@@ -28,7 +28,7 @@ class MotorDrawFrame(tb.Frame):
     buttonStyleName = 'danger.TButton'
     buttonStyle.configure(buttonStyleName, font=('Monospace',10, 'bold'))
 
-    g.motorAngPos[self.motorNo], g.motorAngVel[self.motorNo] = g.serClient.get(f'data{g.motorLabel[self.motorNo]}')
+    g.motorAngPos[self.motorNo], g.motorAngVel[self.motorNo] = g.serClient.get(f'/data{g.motorLabel[self.motorNo]}')
 
     self.posText = tb.Label(self.textFrame1, text="POS(rad):", font=('Monospace',10, 'bold') ,bootstyle="danger")
     self.posVal = tb.Label(self.textFrame1, text=g.motorAngPos[self.motorNo], font=('Monospace',10), bootstyle="dark")
@@ -83,7 +83,7 @@ class MotorDrawFrame(tb.Frame):
 
   def sendPwmCtrl(self):
     if g.motorIsOn[self.motorNo]:
-      isSuccess = g.serClient.send("pwm", 0, 0)
+      isSuccess = g.serClient.send("/pwm", 0, 0)
       if isSuccess:
         g.motorIsOn[self.motorNo] = False
         self.button2.configure(text="START MOTOR")
@@ -91,9 +91,9 @@ class MotorDrawFrame(tb.Frame):
     else:
       #---------------------------------------------------------------------#
       if self.motorNo == 0:
-        isSuccess = g.serClient.send("pwm", g.motorTestPwm[self.motorNo], 0)
+        isSuccess = g.serClient.send("/pwm", g.motorTestPwm[self.motorNo], 0)
       elif self.motorNo == 1:
-        isSuccess = g.serClient.send("pwm", 0, g.motorTestPwm[self.motorNo])
+        isSuccess = g.serClient.send("/pwm", 0, g.motorTestPwm[self.motorNo])
       #---------------------------------------------------------------------#
 
       if isSuccess:
@@ -107,7 +107,7 @@ class MotorDrawFrame(tb.Frame):
 
   def draw_motor_ang_pos(self):
     if g.motorIsOn[self.motorNo] and g.motorTestDuration[self.motorNo] < time.time()-g.motorStartTime[self.motorNo]:
-        isSuccess = g.serClient.send("pwm", 0, 0)
+        isSuccess = g.serClient.send("/pwm", 0, 0)
         if isSuccess:
           g.motorIsOn[self.motorNo] = False
           self.button2.configure(text="START MOTOR")
@@ -117,7 +117,7 @@ class MotorDrawFrame(tb.Frame):
     self.canvas.delete(self.mid_circle)
 
     try:
-      g.motorAngPos[self.motorNo], g.motorAngVel[self.motorNo] = g.serClient.get(f'data{g.motorLabel[self.motorNo]}')
+      g.motorAngPos[self.motorNo], g.motorAngVel[self.motorNo] = g.serClient.get(f'/data{g.motorLabel[self.motorNo]}')
     except:
       pass
 

@@ -27,7 +27,7 @@ class EncSetupFrame(tb.Frame):
     self.frame1.grid_columnconfigure((0,1,2,3), weight=1, uniform='a')
 
     #create widgets to be added to frame1
-    g.motorPPR[self.motorNo] = g.serClient.get(f'ppr{g.motorLabel[self.motorNo]}')
+    g.motorPPR[self.motorNo] = g.serClient.get(f'/ppr{g.motorLabel[self.motorNo]}')
     self.setPulsePerRev = SetValueFrame(self.frame1, keyTextInit=f"PPR_{g.motorLabel[self.motorNo]}: ", valTextInit=g.motorPPR[self.motorNo],
                                         middleware_func=self.setPulsePerRevFunc)
     
@@ -83,8 +83,8 @@ class EncSetupFrame(tb.Frame):
     try:
       if ppr_val_str:
         val = float(ppr_val_str)
-        isSuccessful = g.serClient.send(f'ppr{g.motorLabel[self.motorNo]}', val)
-        val = g.serClient.get(f'ppr{g.motorLabel[self.motorNo]}')
+        isSuccessful = g.serClient.send(f'/ppr{g.motorLabel[self.motorNo]}', val)
+        val = g.serClient.get(f'/ppr{g.motorLabel[self.motorNo]}')
         g.motorPPR[self.motorNo] = val
     except:
       pass
@@ -107,7 +107,7 @@ class EncSetupFrame(tb.Frame):
 
   def initDirConfigA(self):
     try:
-      g.motorDirConfig[self.motorNo] = g.serClient.get(f'rdir{g.motorLabel[self.motorNo]}')
+      g.motorDirConfig[self.motorNo] = g.serClient.get(f'/rdir{g.motorLabel[self.motorNo]}')
       if int(g.motorDirConfig[self.motorNo]) == 1:
         g.motorDirConfigText[self.motorNo] = g.dirConfigTextList[0]
       elif int(g.motorDirConfig[self.motorNo]) == -1:
@@ -124,13 +124,13 @@ class EncSetupFrame(tb.Frame):
         g.motorDirConfigText[self.motorNo] = dir_val_str
 
         if g.motorDirConfigText[self.motorNo] == g.dirConfigTextList[0]:
-          isSuccessful = g.serClient.send(f'rdir{g.motorLabel[self.motorNo]}', 1.00)
-          g.motorDirConfig[self.motorNo] = g.serClient.get(f'rdir{g.motorLabel[self.motorNo]}')
+          isSuccessful = g.serClient.send(f'/rdir{g.motorLabel[self.motorNo]}', 1.00)
+          g.motorDirConfig[self.motorNo] = g.serClient.get(f'/rdir{g.motorLabel[self.motorNo]}')
           g.motorInitialTheta[self.motorNo] = -1*g.motorTheta[self.motorNo] - 90
           
         elif g.motorDirConfigText[self.motorNo] == g.dirConfigTextList[1]:
-          isSuccessful = g.serClient.send(f'rdir{g.motorLabel[self.motorNo]}', -1.00)
-          g.motorDirConfig[self.motorNo] = g.serClient.get(f'rdir{g.motorLabel[self.motorNo]}')
+          isSuccessful = g.serClient.send(f'/rdir{g.motorLabel[self.motorNo]}', -1.00)
+          g.motorDirConfig[self.motorNo] = g.serClient.get(f'/rdir{g.motorLabel[self.motorNo]}')
           g.motorInitialTheta[self.motorNo] = -1*g.motorTheta[self.motorNo] + 90
         
         
