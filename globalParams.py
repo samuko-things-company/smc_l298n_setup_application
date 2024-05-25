@@ -4,7 +4,7 @@ from math import sin, pi
 class g():
   dirConfigTextList = ['forward', 'reverse']
   durationList = [5,10, 15, 20] # in sec
-  signalList = ["step", "square1", "square2", "sine1", "sine2"]
+  signalList = ["step", "square", "sine"]
 
   app = None
   serClient = None
@@ -59,27 +59,7 @@ def stepSignal(targetMax, deltaT, duration):
      targetCtrl = 0              
   return targetCtrl
 
-
-def squareSignal1(targetMax, deltaT, duration):
-  if (deltaT>=(0/10*duration)) and (deltaT < (2/10*duration)):
-     targetCtrl = targetMax/2
-
-  elif (deltaT>=(2/10*duration)) and (deltaT < (4/10*duration)):
-     targetCtrl = targetMax
-
-  elif (deltaT>=(4/10*duration)) and (deltaT < (6/10*duration)):
-     targetCtrl = targetMax/2
-
-  elif (deltaT>=(6/10*duration)) and (deltaT < (8/10*duration)):
-     targetCtrl = targetMax
-  
-  elif (deltaT>=(8/10*duration)) and (deltaT < (10/10*duration)):
-     targetCtrl = targetMax/2
-  else:
-     targetCtrl = 0              
-  return targetCtrl
-
-def squareSignal2(targetMax, deltaT, duration):
+def squareSignal(targetMax, deltaT, duration):
   if (deltaT>(1/10*duration)) and (deltaT < (4.5/10*duration)):
      targetCtrl = targetMax
 
@@ -89,12 +69,8 @@ def squareSignal2(targetMax, deltaT, duration):
      targetCtrl = 0              
   return targetCtrl
 
-def sineSignal1(targetMax, deltaT, duration):
+def sineSignal(targetMax, deltaT, duration):
   targetCtrl = targetMax * sin(2*pi*(deltaT/duration))
-  return targetCtrl
-
-def sineSignal2(targetMax, deltaT, duration):
-  targetCtrl = targetMax * sin(2*pi*(2*deltaT/duration))
   return targetCtrl
 
 
@@ -102,13 +78,9 @@ def selectSignal(type, targetMax, deltaT, duration):
   if type == g.signalList[0]:
     targetCtrl = stepSignal(targetMax, deltaT, duration)
   elif type == g.signalList[1]:
-    targetCtrl = squareSignal1(targetMax, deltaT, duration)
+    targetCtrl = squareSignal(targetMax, deltaT, duration)
   elif type == g.signalList[2]:
-    targetCtrl = squareSignal2(targetMax, deltaT, duration)
-  elif type == g.signalList[3]:
-    targetCtrl = sineSignal1(targetMax, deltaT, duration)
-  elif type == g.signalList[4]:
-    targetCtrl = sineSignal2(targetMax, deltaT, duration)
+    targetCtrl = sineSignal(targetMax, deltaT, duration)
   else:
     targetCtrl = 0.0
   
