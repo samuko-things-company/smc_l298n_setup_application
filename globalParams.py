@@ -62,7 +62,6 @@ def stepSignal(targetMax, deltaT, duration):
 def squareSignal(targetMax, deltaT, duration):
   if (deltaT>(1/10*duration)) and (deltaT < (4.5/10*duration)):
      targetCtrl = targetMax
-
   elif (deltaT>(5.5/10*duration)) and (deltaT < (9/10*duration)):
      targetCtrl = -1*targetMax
   else:
