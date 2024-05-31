@@ -24,16 +24,19 @@ class SelectValueFrame(tb.LabelFrame):
 
     self.selectFrame = tb.Frame(self)
 
-  
     self.combobox = tb.Combobox(self.selectFrame, width=10,
-                          font=('Monospace',10),
-                          bootstyle="secondary",
-                          values=self.comboArrVal,
-                          textvariable=self.selected_val)
-    self.combobox.set(self.comboVal)
-    self.combobox.bind('<<ComboboxSelected>>', self.onSelect)
+                                font=('Monospace',10),
+                                bootstyle="secondary",
+                                values=self.comboArrVal,
+                                textvariable=self.selected_val)
     
-
+    if self.middleware_func:
+      self.combobox.set(self.comboVal)
+      self.combobox.bind('<<ComboboxSelected>>', self.onSelect)
+    else:
+      self.combobox.configure(bootstyle="light")
+      self.combobox.configure(state="disabled")
+    
 
     # add widgets to Frames
     self.keyText.pack(side='left', fill='both')

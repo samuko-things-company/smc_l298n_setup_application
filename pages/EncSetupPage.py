@@ -28,17 +28,17 @@ class EncSetupFrame(tb.Frame):
 
     #create widgets to be added to frame1
     g.motorPPR[self.motorNo] = g.serClient.get(f'/ppr{g.motorLabel[self.motorNo]}')
-    self.setPulsePerRev = SetValueFrame(self.frame1, keyTextInit=f"PPR_{g.motorLabel[self.motorNo]}: ", valTextInit=g.motorPPR[self.motorNo],
+    self.setPulsePerRev = SetValueFrame(self.frame1, keyTextInit=f"*PPR: ", valTextInit=g.motorPPR[self.motorNo],
                                         middleware_func=self.setPulsePerRevFunc)
     
     self.initDirConfigA()
-    self.selectDirConfig = SelectValueFrame(self.frame1, keyTextInit=f"DIR_{g.motorLabel[self.motorNo]}: ", valTextInit=g.motorDirConfigText[self.motorNo],
+    self.selectDirConfig = SelectValueFrame(self.frame1, keyTextInit=f"*DIR: ", valTextInit=g.motorDirConfigText[self.motorNo],
                                             initialComboValues=g.dirConfigTextList, middileware_func=self.selectDirConfigFunc)
     
     self.setTestPwm = SetValueFrame(self.frame1, keyTextInit="TEST_PWM: ", valTextInit=g.motorTestPwm[self.motorNo],
                                     middleware_func=self.setTestPwmFunc)
     
-    self.selectDuration = SelectValueFrame(self.frame1, keyTextInit="TEST_TIME(sec): ", valTextInit=g.motorTestDuration[self.motorNo],
+    self.selectDuration = SelectValueFrame(self.frame1, keyTextInit="DURATION(sec): ", valTextInit=g.motorTestDuration[self.motorNo],
                                            initialComboValues=g.durationList, middileware_func=self.selectDurationFunc)
 
     #add framed widgets to frame1

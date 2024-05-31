@@ -18,16 +18,25 @@ class SetValueFrame(tb.LabelFrame):
     self.valText = tb.Label(self.textFrame, text=valTextInit, font=('Monospace',10), bootstyle="dark")
 
     self.setFrame = tb.Frame(self)
-
-    self.entry = tb.Entry(self.setFrame, width=8, font=('Monospace',10),
-                          bootstyle="secondary")
     
-    buttonStyle = tb.Style()
-    buttonStyleName = 'primary.TButton'
-    buttonStyle.configure(buttonStyleName, font=('Monospace',8,'bold'))
-    self.button = tb.Button(self.setFrame, text="SET", style=buttonStyleName,
-                            command=self.onClick)
-
+    if self.middleware_func:
+      self.entry = tb.Entry(self.setFrame, width=8, font=('Monospace',10),
+                          bootstyle="secondary")
+      
+      buttonStyle = tb.Style()
+      buttonStyleName = 'primary.TButton'
+      buttonStyle.configure(buttonStyleName, font=('Monospace',8,'bold'))
+      self.button = tb.Button(self.setFrame, text="SET", style=buttonStyleName,
+                              command=self.onClick)
+    else:
+      self.entry = tb.Entry(self.setFrame, width=8, font=('Monospace',10),
+                          bootstyle="light", state="disabled")
+      
+      buttonStyle = tb.Style()
+      buttonStyleName = 'light.TButton'
+      buttonStyle.configure(buttonStyleName, font=('Monospace',8,'bold'))
+      self.button = tb.Button(self.setFrame, text="SET", style=buttonStyleName,
+                              state="disabled")
 
     # add widgets to Frames
     self.keyText.pack(side='left', fill='both')
@@ -43,7 +52,8 @@ class SetValueFrame(tb.LabelFrame):
   def onClick(self):
     entryValue = self.entry.get()
     if self.middleware_func == None:
-      self.valText.configure(text="null")
+      pass
+      # self.valText.configure(text="null")
     else:
       updatedValue = self.middleware_func(entryValue)
       self.valText.configure(text=str(updatedValue))

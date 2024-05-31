@@ -29,25 +29,24 @@ class PidSetupFrame(tb.Frame):
 
     #create widgets to be added to frame1
     g.motorKp[self.motorNo] = g.serClient.get(f"/kp{g.motorLabel[self.motorNo]}")
-    self.setKp = SetValueFrame(self.frame1, keyTextInit=f"KP_{g.motorLabel[self.motorNo]}: ", valTextInit=g.motorKp[self.motorNo],
+    self.setKp = SetValueFrame(self.frame1, keyTextInit=f"*KP: ", valTextInit=g.motorKp[self.motorNo],
                                middleware_func=self.setKpFunc)
 
     g.motorKi[self.motorNo] = g.serClient.get(f"/ki{g.motorLabel[self.motorNo]}")
-    self.setKi = SetValueFrame(self.frame1, keyTextInit=f"KI_{g.motorLabel[self.motorNo]}: ", valTextInit=g.motorKi[self.motorNo],
+    self.setKi = SetValueFrame(self.frame1, keyTextInit=f"*KI: ", valTextInit=g.motorKi[self.motorNo],
                                middleware_func=self.setKiFunc)
 
     g.motorKd[self.motorNo] = g.serClient.get(f"/kd{g.motorLabel[self.motorNo]}")
-    self.setKd = SetValueFrame(self.frame1, keyTextInit=f"KD_{g.motorLabel[self.motorNo]}: ", valTextInit=g.motorKd[self.motorNo],
+    self.setKd = SetValueFrame(self.frame1, keyTextInit=f"*KD: ", valTextInit=g.motorKd[self.motorNo],
                                middleware_func=self.setKdFunc)
 
     g.motorCf[self.motorNo] = g.serClient.get(f"/f0{g.motorLabel[self.motorNo]}")
-    self.setCf = SetValueFrame(self.frame1, keyTextInit=f"CF_{g.motorLabel[self.motorNo]}(Hz): ", valTextInit=g.motorCf[self.motorNo],
+    self.setCf = SetValueFrame(self.frame1, keyTextInit=f"*CF(Hz): ", valTextInit=g.motorCf[self.motorNo],
                                middleware_func=self.setCfFunc)
     
 
-
-    self.setMaxVel = SetValueFrame(self.frame1, keyTextInit="MAX(rad/s): ", valTextInit=g.motorMaxVel[self.motorNo],
-                                    middleware_func=self.setMaxVelFunc)
+    g.motorMaxVel[self.motorNo] = g.serClient.get(f"/maxVel{g.motorLabel[self.motorNo]}")
+    self.setMaxVel = SetValueFrame(self.frame1, keyTextInit=f"*W_MAX(rad/s): ", valTextInit=g.motorMaxVel[self.motorNo])
     
     self.setTargetVel = SetValueFrame(self.frame1, keyTextInit="TARGET(rad/s): ", valTextInit=g.motorTargetMaxVel[self.motorNo],
                                     middleware_func=self.setTargetVelFunc)
@@ -55,8 +54,8 @@ class PidSetupFrame(tb.Frame):
     self.selectSignal = SelectValueFrame(self.frame1, keyTextInit="TEST_SIGNAL: ", valTextInit=g.motorTestSignal[self.motorNo],
                                            initialComboValues=g.signalList, middileware_func=self.selectSignalFunc)
     
-    self.selectDuration = SelectValueFrame(self.frame1, keyTextInit="TEST_TIME(sec): ", valTextInit=g.motorTestDuration[self.motorNo],
-                                           initialComboValues=g.durationList, middileware_func=self.selectDurationFunc)
+    self.selectDuration = SelectValueFrame(self.frame1, keyTextInit="DURATION(sec): ", valTextInit=g.motorTestDuration[self.motorNo],
+                                           initialComboValues=g.durationList)
 
 
     #add framed widgets to frame1
@@ -131,16 +130,18 @@ class PidSetupFrame(tb.Frame):
       pass
 
     return g.motorCf[self.motorNo]
+
   
+  # def setMaxVelFunc(self, vel_val_str):
+  #   try:
+  #     if vel_val_str:
+  #       isSuccessful = g.serClient.send(f"/maxVel{g.motorLabel[self.motorNo]}", float(vel_val_str))
+  #       val = g.serClient.get(f"/maxVel{g.motorLabel[self.motorNo]}")
+  #       g.motorMaxVel[self.motorNo] = val
+  #   except:
+  #     pass
 
-  def setMaxVelFunc(self, vel_val_str):
-    try:
-      if vel_val_str:
-        g.motorMaxVel[self.motorNo] = float(vel_val_str)
-    except:
-      pass
-
-    return g.motorMaxVel[self.motorNo]
+  #   return g.motorMaxVel[self.motorNo]
   
 
   def setTargetVelFunc(self, vel_val_str):
@@ -163,12 +164,12 @@ class PidSetupFrame(tb.Frame):
     return g.motorTestSignal[self.motorNo]
   
 
-  def selectDurationFunc(self, duration_val_str):
-    try:
-      if duration_val_str:
-        val = int(duration_val_str)
-        g.motorTestDuration[self.motorNo] = val
-    except:
-      pass
+  # def selectDurationFunc(self, duration_val_str):
+  #   try:
+  #     if duration_val_str:
+  #       val = int(duration_val_str)
+  #       g.motorTestDuration[self.motorNo] = val
+  #   except:
+  #     pass
 
-    return g.motorTestDuration[self.motorNo]
+  #   return g.motorTestDuration[self.motorNo]
