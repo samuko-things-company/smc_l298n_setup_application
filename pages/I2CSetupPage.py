@@ -17,7 +17,7 @@ class I2CSetupFrame(tb.Frame):
 
     #create widgets to be added to frame
     g.i2cAddress = int(g.serClient.get("/i2c"))
-    self.setI2Caddress = SetValueFrame(self.frame, keyTextInit="I2C_ADDRESS: ", valTextInit=g.i2cAddress,
+    self.setI2Caddress = SetValueFrame(self.frame, keyTextInit="*I2C_ADDRESS: ", valTextInit=g.i2cAddress,
                                 middleware_func=self.setI2CaddressFunc)
 
     #add framed widgets to frame
