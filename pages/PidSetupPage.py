@@ -46,7 +46,8 @@ class PidSetupFrame(tb.Frame):
     
 
     g.motorMaxVel[self.motorNo] = g.serClient.get(f"/maxVel{g.motorLabel[self.motorNo]}")
-    self.setMaxVel = SetValueFrame(self.frame1, keyTextInit=f"*W_MAX(rad/s): ", valTextInit=g.motorMaxVel[self.motorNo])
+    self.setMaxVel = SetValueFrame(self.frame1, keyTextInit=f"*W_MAX(rad/s): ", valTextInit=g.motorMaxVel[self.motorNo],
+                                   middleware_func=self.setMaxVelFunc)
     
     self.setTargetVel = SetValueFrame(self.frame1, keyTextInit="TARGET(rad/s): ", valTextInit=g.motorTargetMaxVel[self.motorNo],
                                     middleware_func=self.setTargetVelFunc)
@@ -132,16 +133,16 @@ class PidSetupFrame(tb.Frame):
     return g.motorCf[self.motorNo]
 
   
-  # def setMaxVelFunc(self, vel_val_str):
-  #   try:
-  #     if vel_val_str:
-  #       isSuccessful = g.serClient.send(f"/maxVel{g.motorLabel[self.motorNo]}", float(vel_val_str))
-  #       val = g.serClient.get(f"/maxVel{g.motorLabel[self.motorNo]}")
-  #       g.motorMaxVel[self.motorNo] = val
-  #   except:
-  #     pass
+  def setMaxVelFunc(self, vel_val_str):
+    try:
+      if vel_val_str:
+        isSuccessful = g.serClient.send(f"/maxVel{g.motorLabel[self.motorNo]}", float(vel_val_str))
+        val = g.serClient.get(f"/maxVel{g.motorLabel[self.motorNo]}")
+        g.motorMaxVel[self.motorNo] = val
+    except:
+      pass
 
-  #   return g.motorMaxVel[self.motorNo]
+    return g.motorMaxVel[self.motorNo]
   
 
   def setTargetVelFunc(self, vel_val_str):
