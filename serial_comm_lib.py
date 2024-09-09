@@ -4,7 +4,7 @@ import time
 
 class SerialComm:
   
-  def __init__(self, port, baud, timeOut):
+  def __init__(self, port, baud=115200, timeOut=0.1):
     self.ser = serial.Serial(port, baud, timeout=timeOut)
 
   def send_msg(self, msg_to_send):
