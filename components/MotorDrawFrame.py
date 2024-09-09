@@ -87,7 +87,6 @@ class MotorDrawFrame(tb.Frame):
       if isSuccess:
         g.motorIsOn[self.motorNo] = False
         self.button2.configure(text="START MOTOR")
-        # print('Motor off', isSuccess)
     else:
       #---------------------------------------------------------------------#
       if self.motorNo == 0:
@@ -100,7 +99,6 @@ class MotorDrawFrame(tb.Frame):
         g.motorIsOn[self.motorNo] = True
         g.motorStartTime[self.motorNo] = time.time()
         self.button2.configure(text="STOP MOTOR")
-        # print('Motor On', isSuccess)
 
 
 
@@ -111,7 +109,6 @@ class MotorDrawFrame(tb.Frame):
         if isSuccess:
           g.motorIsOn[self.motorNo] = False
           self.button2.configure(text="START MOTOR")
-          # print('Motor off', isSuccess)
 
     self.canvas.delete(self.line)
     self.canvas.delete(self.mid_circle)

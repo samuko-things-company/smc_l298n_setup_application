@@ -72,9 +72,7 @@ class SerialConnectFrame(tb.Frame):
     try:
       g.serClient = SerialComm(name, 115200, 0.1)
       time.sleep(5)
-      isSuccessful = g.serClient.send("/mode", 0) # decativate pid mode (activate pwm mode and parameter settings)
       isSuccessful = g.serClient.send("/pwm", 0, 0) 
-      # print(isSuccessful)
       return True
     except:
       return False

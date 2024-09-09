@@ -212,7 +212,6 @@ class GraphFrame(tb.Frame):
       if self.doPlot and self.doPlotDuration < time.time()-self.doPlotTime:
           if g.motorIsOn[self.motorNo]:
             isSuccess = g.serClient.send("/tag", 0.0, 0.0)
-            # isSuccessful = g.serClient.send("/mode", 0)
             if isSuccess:
               g.motorIsOn[self.motorNo] = False
               # print('Motor off', isSuccess)
@@ -236,7 +235,6 @@ class GraphFrame(tb.Frame):
                                   deltaT=time.time()-self.doPlotTime)
           
           if not g.motorIsOn[self.motorNo]:
-            # isSuccessful = g.serClient.send("/mode", 1)
             
             #------------------------------------------------------------------------#
             if self.motorNo == 0:
@@ -293,7 +291,6 @@ class GraphFrame(tb.Frame):
       else:
           if g.motorIsOn[self.motorNo]:
             isSuccess = g.serClient.send("/tag", 0, 0)
-            isSuccessful = g.serClient.send("/mode", 0)
             if isSuccess:
               self.clearPlot = True
               self.plotButton.configure(text='CLEAR PLOT')
