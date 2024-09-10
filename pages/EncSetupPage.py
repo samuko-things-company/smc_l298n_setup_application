@@ -7,6 +7,7 @@ from globalParams import g
 from components.SetValueFrame import SetValueFrame
 from components.SelectValueFrame import SelectValueFrame
 from components.MotorDrawFrame import MotorDrawFrame
+from components.CmdMotorFrame import CmdMotorFrame
 
 
 
@@ -48,16 +49,18 @@ class EncSetupFrame(tb.Frame):
     self.selectDuration.grid(row=0, column=3, sticky='nsew', padx=5)
 
     #create widgets to be added to frame2
+    self.cmdMotor = CmdMotorFrame(self.frame2, motorNo=self.motorNo)
     self.drawMotor = MotorDrawFrame(self.frame2, motorNo=self.motorNo)
 
     #add framed widgets to frame2
+    self.cmdMotor.pack(side="top", fill="x", padx=(100,100), pady=(0,20))
     self.drawMotor.pack(side="left", expand=True, fill="both", padx=5)
 
 
     #add frame1, frame2 and frame3 to MainFrame
     self.label.pack(side="top", fill="x", padx=(200,0), pady=(5,0))
     self.frame1.pack(side="top", expand=True, fill="x")
-    self.frame2.pack(side="top", expand=True, fill="both", pady=(120, 0))
+    self.frame2.pack(side="top", expand=True, fill="both", pady=(10, 0))
 
 
 
