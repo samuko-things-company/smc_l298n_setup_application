@@ -71,7 +71,7 @@ class SerialConnectFrame(tb.Frame):
   def connectToPort(self, name):
     try:
       g.serClient = SerialComm(name)
-      time.sleep(5)
+      time.sleep(6)
       isSuccessful = g.serClient.send("/pwm", 0, 0) 
       return True
     except:
