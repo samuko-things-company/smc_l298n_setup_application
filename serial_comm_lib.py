@@ -32,7 +32,6 @@ class SerialComm:
   
   def get(self, cmd_route):
     data = self.send_msg(cmd_route).split(',')
-    # return float(data[0]), float(data[1]), float(data[2])
     if len(data)==1:
       return float(data[0])
     elif len(data)==2:
