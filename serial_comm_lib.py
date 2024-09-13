@@ -21,8 +21,8 @@ class SerialComm:
     return data
 
   
-  def send(self, cmd_route, val1=0, val2=0, val3=0):
-    cmd_str = cmd_route+","+str(val1)+","+str(val2)+","+str(val3)
+  def send(self, cmd_route, val1=0, val2=0, val3=0, val4=0):
+    cmd_str = cmd_route+","+str(val1)+","+str(val2)+","+str(val3)+","+str(val4)
     data = self.send_msg(cmd_str)
     if data == "1":
       return True
